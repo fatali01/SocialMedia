@@ -7,6 +7,6 @@ namespace SocialMedia.Data.Entities
 {
     public class Comments
     {
-        
+
     }
 }

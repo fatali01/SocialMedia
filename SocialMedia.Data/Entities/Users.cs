@@ -8,6 +8,6 @@ namespace SocialMedia.Data.Entities
 {
     public class Users : IdentityUser<int>
     {
-        
+
     }
 }
