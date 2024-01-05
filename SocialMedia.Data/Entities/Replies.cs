@@ -9,6 +9,8 @@ namespace SocialMedia.Data.Entities
 {
     public class Replies
     {
+
+
         [Key]
         public int Id { get; set; }
         public string Text { get; set; }= string.Empty;
@@ -20,5 +22,6 @@ namespace SocialMedia.Data.Entities
         public int CommentId { get; set; }
         [ForeignKey(nameof(CommentId))]
         public Comments Comments { get; set; }
+
     }
 }
