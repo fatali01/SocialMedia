@@ -20,7 +20,5 @@ namespace SocialMedia.Data.Entities
         public int PostId { get; set; }
         public List<Comments> Comments = new List<Comments>();
 
-        public int MyProperty { get; set; }
-
     }
 }
