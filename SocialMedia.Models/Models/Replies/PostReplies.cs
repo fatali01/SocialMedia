@@ -11,7 +11,6 @@ namespace SocialMedia.Models.Models.PostReplies
     {
         [Required,MaxLength(150)]
         public string Text { get; set; } = string.Empty;
-
         
     }
 }
