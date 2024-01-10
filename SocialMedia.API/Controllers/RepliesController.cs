@@ -10,6 +10,7 @@ namespace SocialMedia.API.Controllers
     [Route("api/[controller]")]
     public class RepliesController : ControllerBase
     {
-        
+        [HttpPost("Register")]
+        public async Task<IActionResult> ReplyData([])
     }
 }

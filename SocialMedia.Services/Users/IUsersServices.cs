@@ -9,16 +9,5 @@ using SocialMedia.Models.Users;
 
 namespace SocialMedia.Services.Users
 {
-    public interface IUsersServices
-    {
-        Task<bool> RegisterUserAsync(UserRegister model)
-        {
-            Users entity = new User()
-            {
-                Email = model.Email,
-                UserName = model.UserName,
-                DateCreated = DateTime.Now
-            };
-        }
-    }
+
 }

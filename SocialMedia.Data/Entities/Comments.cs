@@ -9,12 +9,12 @@ namespace SocialMedia.Data.Entities
     public class Comments
     {
         public int Id { get; set;}
-        public string CommentContent { get; set; }
-        [ForeignKey]
+        public string? CommentContent { get; set; }
+        [ForeignKey(nameof(PostId))]
         public int AuthorId { get; set; }
-        [ForeignKey]
+        [ForeignKey(nameof(PostId))]
         public int PostId { get; set; }
-        public List<Replies> Replies = new List<Replies>();
+        public List<Replies> CommentReplyList = new List<Replies>();
 
     }
 }

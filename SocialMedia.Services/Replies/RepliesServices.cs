@@ -2,25 +2,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SocialMedia.Data;
+using SocialMedia.Models.Models.Replies;
 
-namespace SocialMedia.Services.Replies
+namespace SocialMedia.Services.Replies.RepliesServices
 {
     public class RepliesService : IRepliesService
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly AppDbContext _dbContext;
+        private readonly int _userId;
 
-        public NoteService(UserManager<User> userManager,
-                            SignInManager<User> signInManager,
-                            ApplicationDbContext dbContext)
+
+        public async Task<IEnumerable<GetReplies>> GetAllRepliesByUserI()
         {
-            var currentUser = signInManager.Context.User;
-            var userIdClaim = userManager.GetUserId(currentUser);
-            var hasValidId = int.TryParse(userIdClaim, out _userId);
+            var comments = await _dbContext.Comments
+                .Include(c => c.ReplyList) // Ensure to include the replies in the query
+                .Where(c => c.AuthorId == userId)
+                .Select(c => new GetComments
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    AuthorId = c.AuthorId,
+                    Replies = c.Replies.ToList()
+                })
+                .ToListAsync();
+            return comments;
+        }
 
-            if (hasValidId == false)
-                throw new Exception("Attempted to build ReplyService without Id claim.");
-                
-            _dbContext = dbContext;
+
+
+        public async Task<IEnumerable<GetComments>> GetCommentsByPostIdAsync(int postId)
+
+        {
+            var comment = await _dbContext.Comments
+                .Include(c => c.ReplyList)
+                .FirstOrDefaultAsync(c => c.Id == postId);
+
+            if (comment == null)
+                return null;
+
+            return new GetComments
+            {
+                Id = comment.Id,
+                Title = comment.Title,
+                AuthorId = comment.AuthorId,
+                ReplyList = comment.Replies.ToList()
+            };
+
         }
     }
 }
