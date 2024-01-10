@@ -14,10 +14,12 @@ namespace SocialMedia.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-            DbSet<Users> Users { get; set; } = null!;
-            DbSet<Replies> Replies { get; set; } = null!;
-            DbSet<Posts> Posts { get; set; } = null!;
-            DbSet<Comments> Comments { get; set; } = null!;
+            
+            public DbSet<Users> Users { get; set; } = null!;
+            
+            public DbSet<Replies> Replies { get; set; } = null!;
+            public DbSet<Posts> Posts { get; set; } = null!;
+            public DbSet<Comments> Comments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
