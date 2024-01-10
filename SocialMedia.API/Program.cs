@@ -1,13 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
+
 using SocialMedia.Services.Comments;
 using SocialMedia.Services.Posts;
 using SocialMedia.Services.Replies;
 using SocialMedia.Services.Users;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));

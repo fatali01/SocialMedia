@@ -15,5 +15,16 @@ namespace SocialMedia.Data.Entities
         public int AuthorId { get; set; }
         public List<Comments> CommentList = new List<Comments>();
 
+
+
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+        [ForeignKey]
+        public int AuthorId { get; set; }
+        [ForeignKey]
+        public int PostId { get; set; }
+        public List<Comments> Comments = new List<Comments>();
+
     }
 }
