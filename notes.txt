@@ -1,0 +1,7 @@
+Skipped the connectionString declaration and configuration for the login
+
+dotnet EF not compatible with dotnet 7?
+
+dotnet ef migrations add
+
+could not install codegenerator

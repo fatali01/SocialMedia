@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using SocialMedia.Data.Entities;
 
 namespace SocialMedia.Data
@@ -14,10 +15,10 @@ namespace SocialMedia.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-            DbSet<Users> Users { get; set; } = null!;
-            DbSet<Replies> Replies { get; set; } = null!;
-            DbSet<Posts> Posts { get; set; } = null!;
-            DbSet<Comments> Comments { get; set; } = null!;
+            public DbSet<Users> Users { get; set; } = null!;
+            public DbSet<Replies> Replies { get; set; } = null!;
+            public DbSet<Posts> Posts { get; set; } = null!;
+            public DbSet<Comments> Comments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,4 +30,5 @@ namespace SocialMedia.Data
             modelBuilder.Entity<Comments>().ToTable("Comments");
         }
     }
+
 }

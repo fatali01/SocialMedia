@@ -8,6 +8,12 @@ namespace SocialMedia.Data.Entities
 {
     public class Posts
     {
+        public int Id { get; set;}
+        public string? Title { get; set; }
+        public string? PostContent { get; set; }
+        [ForeignKey(nameof(AuthorId))]
+        public int AuthorId { get; set; }
+        public List<Comments> CommentList = new List<Comments>();
 
 
 
