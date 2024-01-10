@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
+using SocialMedia.Services.RepliesServices;
 
 using SocialMedia.Services.Comments;
 using SocialMedia.Services.Posts;
@@ -14,8 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
+
+builder.Services.AddScoped<IRepliesServices, RepliesServices>();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

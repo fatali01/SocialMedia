@@ -1,54 +1,69 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SocialMedia.Data;
-using SocialMedia.Models.Models.Replies;
+using SocialMedia.Data.Entities;
+using SocialMedia.Models.Models.GetPosts;
+using SocialMedia.Models.Models.GetReplies;
+using SocialMedia.Models.Models.PostReplies;
 
-namespace SocialMedia.Services.Replies.RepliesServices
+namespace SocialMedia.Services.RepliesServices
 {
-    public class RepliesService : IRepliesService
+    public class RepliesServices : IRepliesServices 
     {
-        private readonly AppDbContext _dbContext;
-        private readonly int _userId;
+        private readonly AppDbContext _context;
 
+        public RepliesServices(AppDbContext context)
+        { _context = context; }
 
-        public async Task<IEnumerable<GetReplies>> GetAllRepliesByUserI()
-        {
-            var comments = await _dbContext.Comments
-                .Include(c => c.ReplyList) // Ensure to include the replies in the query
-                .Where(c => c.AuthorId == userId)
-                .Select(c => new GetComments
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    AuthorId = c.AuthorId,
-                    Replies = c.Replies.ToList()
-                })
-                .ToListAsync();
-            return comments;
+        void DisplayReply(GetReplies reply)
+        {   
+            System.Console.WriteLine($"{reply.Text} ");
         }
 
-
-
-        public async Task<IEnumerable<GetComments>> GetCommentsByPostIdAsync(int postId)
-
+        async Task<GetReplies> IRepliesServices.GetReplyByAuthorIdAsync(int AuthorId)
         {
-            var comment = await _dbContext.Comments
-                .Include(c => c.ReplyList)
-                .FirstOrDefaultAsync(c => c.Id == postId);
-
-            if (comment == null)
-                return null;
-
-            return new GetComments
+            var reply = await _context.Replies.FindAsync(AuthorId);
+            if(reply == null)
+                return null!;
+            
+            GetReplies getReplies = new GetReplies(){Text = reply.Text };
+            if(reply != null)
             {
-                Id = comment.Id,
-                Title = comment.Title,
-                AuthorId = comment.AuthorId,
-                ReplyList = comment.Replies.ToList()
-            };
+                DisplayReply(getReplies);
+                return getReplies;
+            }
+            else
+            {
+                System.Console.WriteLine($"{AuthorId} not found");
+                return null!;
+            }
+        }
 
+        async Task<bool> IRepliesServices.PostReply(PostReplies model)
+        {
+            Replies reply = new Replies()
+            {
+                Text = model.Text
+            };
+            
+            var result = await _context.Replies.AddAsync(reply);
+            
+            
+            var numberOfChanges =  await _context.SaveChangesAsync();
+
+            if(numberOfChanges == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

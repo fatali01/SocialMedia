@@ -14,7 +14,8 @@ namespace SocialMedia.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
-
+     
+            public DbSet<Users> Users { get; set; } = null!;
             public DbSet<Users> Users { get; set; } = null!;
             public DbSet<Replies> Replies { get; set; } = null!;
             public DbSet<Posts> Posts { get; set; } = null!;
