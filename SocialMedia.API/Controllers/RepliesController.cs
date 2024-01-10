@@ -49,18 +49,5 @@ namespace SocialMedia.API.Controllers
 
             return Ok("Reply posted successfully");
         }
-
-        // [HttpPost]
-        // public async Task<IActionResult> PostReply(PostReplies model)
-        // {
-        //     if(!ModelState.IsValid)
-        //     return BadRequest(ModelState);
-
-        //     var reply = await _userReply.PostReply(model);
-        //     if(reply != true)
-        //     return Ok(reply);
-        // }
-
-
     }
 }

@@ -25,46 +25,6 @@ namespace SocialMedia.Services.RepliesServices
             System.Console.WriteLine($"{reply.Text} ");
         }
 
-        // private async Task<bool> PostReply(PostReplies model)
-        // {
-        //     Replies reply = new Replies()
-        //     {
-        //         Text = model.Text
-        //     };
-            
-        //     var result = await _context.Replies.AddAsync(reply);
-            
-            
-        //     var numberOfChanges =  await _context.SaveChangesAsync();
-
-        //     if(numberOfChanges == 1)
-        //     {
-        //         return true;
-        //     }
-        //     else
-        //     {
-        //         return false;
-        //     }
-        // }
-        // private async Task<GetReplies> GetReplyByAuthorIdAsync(int AuthorId)
-        // {
-        //     var reply = await _context.Replies.FindAsync(AuthorId);
-        //     if(reply == null)
-        //         return null!;
-            
-        //     GetReplies getReplies = new GetReplies(){Text = reply.Text };
-        //     if(reply != null)
-        //     {
-        //         DisplayReply(getReplies);
-        //         return getReplies;
-        //     }
-        //     else
-        //     {
-        //         System.Console.WriteLine($"{AuthorId} not found");
-        //         return null!;
-        //     }
-        // }
-
         async Task<GetReplies> IRepliesServices.GetReplyByAuthorIdAsync(int AuthorId)
         {
             var reply = await _context.Replies.FindAsync(AuthorId);
